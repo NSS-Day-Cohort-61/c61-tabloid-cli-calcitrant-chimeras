@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
 using TabloidCLI.Models;
 using TabloidCLI.Repositories;
@@ -39,6 +40,9 @@ namespace TabloidCLI.UserInterfaceManagers
                     return this;
                 case "3":
                     Edit();
+                    return this;
+                case "4":
+                    Remove();
                     return this;
                 case "0":
                     return _parentUI;
@@ -127,6 +131,15 @@ namespace TabloidCLI.UserInterfaceManagers
             }
 
             _journalRepository.Update(journalToEdit);
+        }
+
+        private void Remove()
+        {
+            Journal journalToRemove = Choose("Which journal would you like to remove?");
+            if (journalToRemove != null)
+            {
+                _journalRepository.Delete(journalToRemove.Id);
+            }
         }
     }
 }
