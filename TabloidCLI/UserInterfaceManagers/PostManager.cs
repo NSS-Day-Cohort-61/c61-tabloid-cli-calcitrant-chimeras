@@ -25,7 +25,8 @@ namespace TabloidCLI.UserInterfaceManagers
         public IUserInterfaceManager Execute()
         {
             Console.WriteLine("Post Menu");
-            Console.WriteLine(" 1) Add Post");
+            Console.WriteLine(" 1) List Posts");
+            Console.WriteLine(" 2) Add Post");
             Console.WriteLine(" 0) Go Back");
 
             Console.Write("> ");
@@ -34,6 +35,9 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
+                    List();
+                    return this;
+                case "2":
                     AddPost();
                     return this;
                 case "0":
@@ -43,6 +47,16 @@ namespace TabloidCLI.UserInterfaceManagers
                     return this;
             }
         }
+
+        private void List()
+        {
+            List<Post> posts = _postRepository.GetAll();
+            foreach (Post post in posts)
+            {
+                Console.WriteLine($"{post.Title} -- {post.Url}");
+            }
+        }
+
         private void AddPost()
         {
             Console.WriteLine("New Post");

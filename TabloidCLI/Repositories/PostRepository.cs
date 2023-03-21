@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 using TabloidCLI.Models;
+using TabloidCLI.Repositories;
 
-namespace TabloidCLI.Repositories
+namespace TabloidCLI
 {
     public class PostRepository : DatabaseConnector, IRepository<Post>
     {
@@ -16,7 +17,7 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT id, Title, Url, PublishDateTime, AuthorId, BlogId
+                    cmd.CommandText = @"SELECT Id, Title, Url, PublishDateTime, AuthorId, BlogId
                                         FROM Post";
 
                     List<Post> posts = new List<Post>();
@@ -24,22 +25,24 @@ namespace TabloidCLI.Repositories
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        Post post = new Post();
+                        Post post = new Post()
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Title = reader.GetString(reader.GetOrdinal("Title")),
                             Url = reader.GetString(reader.GetOrdinal("Url")),
-                            PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime"),
+                            PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime")),
                             Author = new Author()
                             {
-                                    Id = reader.GetInt32(reader.GetOrdinal("AuthorId"))
+                                Id = reader.GetInt32(reader.GetOrdinal("AuthorId"))
                             },
                             Blog = new Blog()
                             {
-                                    Id = reader.GetInt32(reader.GetOrdinal("BlogId"))
+                                Id = reader.GetInt32(reader.GetOrdinal("BlogId"))
                             },
                         };
+                        posts.Add(post);
                     }
+                    return posts;
                 }
             }
         }
