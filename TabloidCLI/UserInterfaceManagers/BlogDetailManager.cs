@@ -68,6 +68,11 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine();
             Console.WriteLine($"Blog title: {blog.Title}");
             Console.WriteLine($"URL: {blog.Url}");
+            Console.WriteLine("Tags:");
+            foreach (Tag tag in blog.Tags)
+            {
+                Console.WriteLine(" " + tag);
+            }
             Console.WriteLine();
         }
 
