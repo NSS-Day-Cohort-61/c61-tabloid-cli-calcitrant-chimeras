@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using TabloidCLI.Models;
 using TabloidCLI.Repositories;
 
@@ -22,9 +24,10 @@ namespace TabloidCLI.UserInterfaceManagers
         {
             Console.WriteLine("Journal Menu");
             Console.WriteLine(" 1) List Journals");
-            Console.WriteLine(" 2) Add Journal");
-            Console.WriteLine(" 3) Edit Journal");
-            Console.WriteLine(" 4) Delete Journal");
+            Console.WriteLine(" 2) View a Journal");
+            Console.WriteLine(" 3) Add Journal");
+            Console.WriteLine(" 4) Edit Journal");
+            Console.WriteLine(" 5) Delete Journal");
             Console.WriteLine(" 0) Go Back");
 
             Console.Write("> ");
@@ -35,10 +38,16 @@ namespace TabloidCLI.UserInterfaceManagers
                     List();
                     return this;
                 case "2":
-                    Add();
+                    View();
                     return this;
                 case "3":
+                    Add();
+                    return this;
+                case "4":
                     Edit();
+                    return this;
+                case "5":
+                    Remove();
                     return this;
                 case "0":
                     return _parentUI;
@@ -88,6 +97,17 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
+        private void View() 
+        {
+            Journal journalToView = Choose("Which journal would you like to view?");
+            if (journalToView == null)
+            {
+                return;
+            }
+            Console.WriteLine($"{journalToView.Title} - {journalToView.CreateDateTime.ToString("MM/dd/yyyy")}");
+            Console.WriteLine(journalToView.Content);
+        }
+
         private void Add()
         {
             Console.WriteLine("New Journal");
@@ -127,6 +147,15 @@ namespace TabloidCLI.UserInterfaceManagers
             }
 
             _journalRepository.Update(journalToEdit);
+        }
+
+        private void Remove()
+        {
+            Journal journalToRemove = Choose("Which journal would you like to remove?");
+            if (journalToRemove != null)
+            {
+                _journalRepository.Delete(journalToRemove.Id);
+            }
         }
     }
 }
