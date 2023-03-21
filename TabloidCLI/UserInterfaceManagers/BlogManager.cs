@@ -33,7 +33,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 0) Go Back");
 
 
-            Console.WriteLine("> ");
+            Console.Write("> ");
             string choice = Console.ReadLine();
             switch (choice)
             {
@@ -116,7 +116,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 Blog blog = blogs[i];
                 Console.WriteLine($" {i + 1}) {blog.Title}");
             }
-            Console.WriteLine("> ");
+            Console.Write("> ");
             string input = Console.ReadLine();
             try
             {
