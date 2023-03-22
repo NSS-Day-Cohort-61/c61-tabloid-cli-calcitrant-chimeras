@@ -34,7 +34,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 3) Remove Tag");
             Console.WriteLine(" 4) View posts");
             Console.WriteLine(" 0) Go Back");
-            Console.WriteLine();
+            Console.Write("> ");
 
 
 
@@ -102,7 +102,7 @@ namespace TabloidCLI.UserInterfaceManagers
         {
             Blog blog = _blogRepository.Get(_blogId);
 
-            Console.WriteLine($"Which tag would you like to add to {blog.Title}");
+            Console.WriteLine($"Which tag would you like to add to {blog.Title}?");
             List<Tag> tags = _tagRepository.GetAll();
             for (int i = 0; i < tags.Count; i++)
             {

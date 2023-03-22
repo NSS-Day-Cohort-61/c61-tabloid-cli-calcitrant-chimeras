@@ -27,6 +27,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine("Post Menu");
             Console.WriteLine(" 1) List Posts");
             Console.WriteLine(" 2) Add Post");
+            Console.WriteLine(" 3) Post Details");
             Console.WriteLine(" 0) Go Back");
 
             Console.Write("> ");
@@ -40,6 +41,15 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "2":
                     AddPost();
                     return this;
+                case "3":
+                    Post post = Choose();
+                    if (post == null)
+                    {
+                        return this;
+                    }
+                    {
+                        return new PostDetailManager(this, _connectionString, post.Id);
+                    }
                 case "0":
                     return _parentUI;
                 default:
@@ -54,6 +64,36 @@ namespace TabloidCLI.UserInterfaceManagers
             foreach (Post post in posts)
             {
                 Console.WriteLine($"{post.Title} -- {post.Url}");
+            }
+        }
+        private Post Choose(string prompt = null)
+        {
+            if (prompt == null)
+            {
+                prompt = "Please choose an Post:";
+            }
+
+            Console.WriteLine(prompt);
+
+            List<Post> posts = _postRepository.GetAll();
+
+            for (int i = 0; i < posts.Count; i++)
+            {
+                Post post = posts[i];
+                Console.WriteLine($" {i + 1}) {post.Title}");
+            }
+            Console.Write("> ");
+
+            string input = Console.ReadLine();
+            try
+            {
+                int choice = int.Parse(input);
+                return posts[choice - 1];
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Invalid Selection");
+                return null;
             }
         }
 
