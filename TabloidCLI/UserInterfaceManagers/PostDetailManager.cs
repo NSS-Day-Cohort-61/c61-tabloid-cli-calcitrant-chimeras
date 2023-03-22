@@ -21,6 +21,7 @@ namespace TabloidCLI.UserInterfaceManagers
             _postRepository = new PostRepository(connectionString);
             _tagRepository = new TagRepository(connectionString);
             _postId = postId;
+            _connectionString = connectionString;
         }
 
         public IUserInterfaceManager Execute()
@@ -47,15 +48,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     RemoveTag();
                     return this;
                 case "4":
-                    Post choosePost = Choose();
-                    if (choosePost == null)
-                    {
-                        return this;
-                    }
-                    else
-                    {
-                        return new NoteManager(this, _connectionString, post.Id);
-                    }                    
+                    return new NoteManager(this, _connectionString, post.Id);                  
                 case "0":
                     return _parentUI;
                 default:
