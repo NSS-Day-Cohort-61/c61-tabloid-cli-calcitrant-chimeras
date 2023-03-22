@@ -2,7 +2,7 @@
 
 namespace TabloidCLI.Models
 {
-    public class Author
+    public class Author : IResult
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

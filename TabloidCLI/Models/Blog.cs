@@ -2,7 +2,7 @@
 
 namespace TabloidCLI.Models
 {
-    public class Blog
+    public class Blog : IResult
     {
         public int Id { get; set; }
         public string Title { get; set; }
