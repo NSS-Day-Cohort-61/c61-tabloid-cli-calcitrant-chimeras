@@ -28,11 +28,13 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
+                    Search("blogs");
                     return this;
                 case "2":
-                    SearchAuthors();
+                    Search("authors");
                     return this;
                 case "3":
+                    Search("posts");
                     return this;
                 case "4":
                     return this;
@@ -44,18 +46,28 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        private void SearchBlogs()
+        private void Search(string model)
         {
             Console.Write("Tag > ");
-            string tagname = Console.ReadLine();
-
-        }
-        private void SearchAuthors()
-        {
-            Console.Write("Tag> ");
             string tagName = Console.ReadLine();
 
-            SearchResults<Author> results = _tagRepository.SearchAuthors(tagName);
+            SearchResults<IResult> results = new SearchResults<IResult>();
+
+            switch (model)
+            {
+                case "authors":
+                    results = _tagRepository.SearchAuthors(tagName);
+                    break;
+                case "blogs":
+                    results = _tagRepository.SearchBlogs(tagName);
+                    break;
+                case "posts":
+                    results = _tagRepository.SearchPosts(tagName);
+                    break;
+                default:
+                    Console.WriteLine("Invalid search query.");
+                    break;
+            }
 
             if (results.NoResultsFound)
             {
@@ -65,6 +77,23 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 results.Display();
             }
+
         }
+        //private void SearchAuthors()
+        //{
+        //    Console.Write("Tag> ");
+        //    string tagName = Console.ReadLine();
+
+        //    SearchResults<Author> results = _tagRepository.SearchAuthors(tagName);
+
+        //    if (results.NoResultsFound)
+        //    {
+        //        Console.WriteLine($"No results for {tagName}");
+        //    }
+        //    else
+        //    {
+        //        results.Display();
+        //    }
+        //}
     }
 }
