@@ -270,8 +270,12 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE FROM Post WHERE id = @id";
+                    cmd.CommandText = @"DELETE FROM PostTag 
+                                            WHERE PostId = @postId
+                                        DELETE FROM Post
+                                            WHERE id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@postId", id);
 
                     cmd.ExecuteNonQuery();
                 }
