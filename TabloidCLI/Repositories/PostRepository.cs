@@ -59,7 +59,8 @@ namespace TabloidCLI
                                             LEFT JOIN Author a ON p.AuthorId = a.Id
                                             LEFT JOIN Blog b ON p.BlogId = b.Id
                                             LEFT JOIN PostTag pt ON p.Id = pt.PostId
-                                            LEFT JOIN Tag t ON pt.TagId = TagId";
+                                            LEFT JOIN Tag t ON pt.TagId = TagId
+                                            WHERE p.Id = @id";
 
                     cmd.Parameters.AddWithValue("@id", id);
 
@@ -238,12 +239,43 @@ namespace TabloidCLI
 
         public void Update(Post post)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Post
+                                            SET Title = @title,
+                                                Url = @url,
+                                                PublishDateTime = @publishDateTime,
+                                                AuthorId = @authorId,
+                                                BlogId = @blogId
+                                            WHERE id = @id";
+                    cmd.Parameters.AddWithValue("@title", post.Title);
+                    cmd.Parameters.AddWithValue("@url", post.Url);
+                    cmd.Parameters.AddWithValue("@publishDateTime", post.PublishDateTime);
+                    cmd.Parameters.AddWithValue("@authorId", post.Author.Id);
+                    cmd.Parameters.AddWithValue("@blogId", post.Blog.Id);
+                    cmd.Parameters.AddWithValue("@id", post.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Post WHERE id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public void InsertTag(Post post, Tag tag)
