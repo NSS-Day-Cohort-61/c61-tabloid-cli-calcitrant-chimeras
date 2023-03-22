@@ -50,6 +50,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     AddTag();
                     return this;
                 case "3":
+                    RemoveTag();
                     return this;
                 case "4":
                     ViewBlogPosts();
@@ -111,6 +112,11 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Console.WriteLine("Invalid Selection. Won't add any tags.");
             }
+        }
+
+        private void RemoveTag()
+        {
+
         }
     }
 }
