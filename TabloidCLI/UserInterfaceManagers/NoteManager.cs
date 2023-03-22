@@ -36,7 +36,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     List();
                     return this;
                 case "2":
-                    //Add([postId]); Need to pass to this function id of Post this menu is in reference to
+                    Add(_postId);
                     return this;
                 case "3":
                     Edit();
@@ -58,7 +58,7 @@ namespace TabloidCLI.UserInterfaceManagers
             List<Note> notes = _noteRepository.GetAll();
             foreach (Note note in notes)
             {
-                Console.WriteLine(note);
+                Console.WriteLine(note.Title);
             }
         }
 
@@ -96,13 +96,18 @@ namespace TabloidCLI.UserInterfaceManagers
         private void Add(int postId)
         {
             Console.WriteLine("New Note");
-            Note note = new Note();
+            Note note = new Note()
+            {
+                Post = new Post() { Id = postId }
+            };
 
             Console.Write("Title: ");
             note.Title = Console.ReadLine();
 
             Console.Write("Content: ");
             note.Content = Console.ReadLine();
+
+            note.CreateDateTime = DateTime.Now;
 
             note.Post.Id = postId;
 
