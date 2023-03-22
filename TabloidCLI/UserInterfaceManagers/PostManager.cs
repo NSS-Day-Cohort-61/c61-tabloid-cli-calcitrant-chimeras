@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Data.SqlClient;
 using TabloidCLI.Models;
 using TabloidCLI.Repositories;
 
@@ -27,7 +28,9 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine("Post Menu");
             Console.WriteLine(" 1) List Posts");
             Console.WriteLine(" 2) Add Post");
-            Console.WriteLine(" 3) Post Details");
+            Console.WriteLine(" 3) Edit Post");
+            Console.WriteLine(" 4) Remove Post");
+            Console.WriteLine(" 5) Post Details");
             Console.WriteLine(" 0) Go Back");
 
             Console.Write("> ");
@@ -42,6 +45,12 @@ namespace TabloidCLI.UserInterfaceManagers
                     AddPost();
                     return this;
                 case "3":
+                    EditPost();
+                    return this;
+                case "4":
+                    DeletePost();
+                    return this;
+                case "5":
                     Post post = Choose();
                     if (post == null)
                     {
@@ -182,6 +191,52 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
+        private void EditPost()
+        {
+            Post postToEdit = Choose("Which post would you like to edit?");
+            if (postToEdit == null)
+            {
+                return;
+            }
+
+            Console.WriteLine();
+            Console.Write("New title (blank to leave unchanged): ");
+            string postTitle = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(postTitle))
+            {
+                postToEdit.Title = postTitle;
+            }
+            Console.Write("New url (blank to leave unchanged): ");
+            string url = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(url))
+            {
+                postToEdit.Url = url;
+            }
+            Console.Write("New publish date YYYY-MM-DD (blank to leave unchanged): ");
+            string publishDate = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(publishDate))
+            {
+                DateTime date = DateTime.Parse(publishDate);
+                postToEdit.PublishDateTime = date;
+            }
+            Console.WriteLine("New Author");
+            Author postAuthor = ChooseAuthor();
+            postToEdit.Author.Id = postAuthor.Id;
+            Console.WriteLine("New blog");
+            Blog postBlog = ChooseBlog();
+            postToEdit.Blog.Id = postBlog.Id;
+
+            _postRepository.Update(postToEdit);
+        }
+
+        private void DeletePost()
+        {
+            Post postToDelete = Choose("Which post would you like to delete?");
+            if (postToDelete != null)
+            {
+                _postRepository.Delete(postToDelete.Id);
+            }
+        }
 
     }
 }

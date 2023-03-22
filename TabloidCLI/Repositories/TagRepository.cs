@@ -87,14 +87,14 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE FROM Tag
-                                            WHERE id = @id
-                                        DELETE FROM BlogTag
+                    cmd.CommandText = @"DELETE FROM BlogTag
                                             WHERE TagId = @id
                                         DELETE FROM AuthorTag
                                             WHERE TagId = @id
                                         DELETE FROM PostTag
-                                            WHERE TagId = @id";
+                                            WHERE TagId = @id
+                                        DELETE FROM Tag
+                                            WHERE id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
 
                     cmd.ExecuteNonQuery();
