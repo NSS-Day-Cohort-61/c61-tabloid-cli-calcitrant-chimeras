@@ -44,6 +44,12 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
+        private void SearchBlogs()
+        {
+            Console.Write("Tag > ");
+            string tagname = Console.ReadLine();
+
+        }
         private void SearchAuthors()
         {
             Console.Write("Tag> ");
