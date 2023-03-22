@@ -90,7 +90,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 int choice = int.Parse(input);
                 return journals[choice - 1];
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.Write("Invalid Selection");
                 return null;

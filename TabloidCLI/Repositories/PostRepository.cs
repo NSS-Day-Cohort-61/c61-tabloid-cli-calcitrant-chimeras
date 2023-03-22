@@ -59,7 +59,7 @@ namespace TabloidCLI
                                             LEFT JOIN Author a ON p.AuthorId = a.Id
                                             LEFT JOIN Blog b ON p.BlogId = b.Id
                                             LEFT JOIN PostTag pt ON p.Id = pt.PostId
-                                            LEFT JOIN Tag t ON pt.TagId = TagId
+                                            LEFT JOIN Tag t ON pt.TagId = t.Id
                                             WHERE p.Id = @id";
 
                     cmd.Parameters.AddWithValue("@id", id);
@@ -292,7 +292,7 @@ namespace TabloidCLI
                     cmd.CommandText = @"INSERT INTO PostTag (PostId, TagId)
                                             VALUES (@postId, @tagId)";
                     cmd.Parameters.AddWithValue("@postId", post.Id);
-                    cmd.Parameters.AddWithValue("tagId", tag.Id);
+                    cmd.Parameters.AddWithValue("@tagId", tag.Id);
                     cmd.ExecuteNonQuery ();
                 }
             }
