@@ -59,7 +59,7 @@ namespace TabloidCLI
                                             LEFT JOIN Author a ON p.AuthorId = a.Id
                                             LEFT JOIN Blog b ON p.BlogId = b.Id
                                             LEFT JOIN PostTag pt ON p.Id = pt.PostId
-                                            LEFT JOIN Tag t ON pt.TagId = t.TagId";
+                                            LEFT JOIN Tag t ON pt.TagId = TagId";
 
                     cmd.Parameters.AddWithValue("@id", id);
 
