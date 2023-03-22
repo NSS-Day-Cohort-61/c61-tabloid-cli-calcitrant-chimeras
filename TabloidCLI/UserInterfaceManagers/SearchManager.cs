@@ -73,7 +73,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     break;
                 case "posts":
                     results = _tagRepository.SearchPosts(tagName);
-                    results.Title = "Blog Search Results:";
+                    results.Title = "Post Search Results:";
                     break;
                 case "all":
                     // rather than run a search here,
