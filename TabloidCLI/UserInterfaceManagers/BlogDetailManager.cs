@@ -150,4 +150,4 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
     }
-}
+} 
