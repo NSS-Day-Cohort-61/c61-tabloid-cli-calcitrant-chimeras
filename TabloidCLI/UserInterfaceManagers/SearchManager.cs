@@ -25,18 +25,23 @@ namespace TabloidCLI.UserInterfaceManagers
 
             Console.Write("> ");
             string choice = Console.ReadLine();
+            string tagName = GetUserSearch();
+
             switch (choice)
             {
                 case "1":
-                    Search("blogs");
+                    Search("blogs", tagName);
                     return this;
                 case "2":
-                    Search("authors");
+                    Search("authors", tagName);
                     return this;
                 case "3":
-                    Search("posts");
+                    Search("posts", tagName);
                     return this;
                 case "4":
+                    Search("authors", tagName);
+                    Search("blogs", tagName);
+                    Search("posts", tagName);
                     return this;
                 case "0":
                     return _parentUI;
@@ -46,23 +51,33 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        private void Search(string model)
+        private string GetUserSearch()
         {
             Console.Write("Tag > ");
-            string tagName = Console.ReadLine();
+            return Console.ReadLine();
+        }
 
+        private void Search(string model, string tagName)
+        {
             SearchResults<IResult> results = new SearchResults<IResult>();
 
             switch (model)
             {
                 case "authors":
                     results = _tagRepository.SearchAuthors(tagName);
+                    results.Title = "Author Search Results:";
                     break;
                 case "blogs":
                     results = _tagRepository.SearchBlogs(tagName);
+                    results.Title = "Blog Search Results:";
                     break;
                 case "posts":
                     results = _tagRepository.SearchPosts(tagName);
+                    results.Title = "Blog Search Results:";
+                    break;
+                case "all":
+                    // rather than run a search here,
+                    //  just runs each search individually
                     break;
                 default:
                     Console.WriteLine("Invalid search query.");
@@ -71,7 +86,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
             if (results.NoResultsFound)
             {
-                Console.WriteLine($"No results for {tagName}");
+                Console.WriteLine($"No results for {tagName} in {model}");
             }
             else
             {
