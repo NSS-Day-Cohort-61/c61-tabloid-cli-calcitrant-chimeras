@@ -94,21 +94,5 @@ namespace TabloidCLI.UserInterfaceManagers
             }
 
         }
-        //private void SearchAuthors()
-        //{
-        //    Console.Write("Tag> ");
-        //    string tagName = Console.ReadLine();
-
-        //    SearchResults<Author> results = _tagRepository.SearchAuthors(tagName);
-
-        //    if (results.NoResultsFound)
-        //    {
-        //        Console.WriteLine($"No results for {tagName}");
-        //    }
-        //    else
-        //    {
-        //        results.Display();
-        //    }
-        //}
     }
 }
