@@ -70,7 +70,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine($"All blog tags: ");
                 foreach (Tag tag in blog.Tags)
                 {
-                    Console.WriteLine($"{tag.Name}");
+                    Console.WriteLine($" {tag.Name}");
                 }
             }
 
