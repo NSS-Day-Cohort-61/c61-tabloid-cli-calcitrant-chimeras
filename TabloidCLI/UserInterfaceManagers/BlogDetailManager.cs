@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TabloidCLI.Repositories;
 using TabloidCLI.Models;
-using System.ComponentModel.Design;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
@@ -74,7 +70,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine($"All blog tags: ");
                 foreach (Tag tag in blog.Tags)
                 {
-                    Console.WriteLine($"{tag.Name}");
+                    Console.WriteLine($" {tag.Name}");
                 }
             }
 

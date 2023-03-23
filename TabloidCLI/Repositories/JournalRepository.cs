@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using TabloidCLI.Models;
 
 namespace TabloidCLI.Repositories
