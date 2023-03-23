@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Threading.Tasks;
-using Microsoft.IdentityModel.Tokens;
 using TabloidCLI.Models;
 
 namespace TabloidCLI.UserInterfaceManagers

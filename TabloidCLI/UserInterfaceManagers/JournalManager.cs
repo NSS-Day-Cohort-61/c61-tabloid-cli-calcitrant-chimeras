@@ -1,7 +1,5 @@
-﻿using Microsoft.VisualBasic.FileIO;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using TabloidCLI.Models;
 using TabloidCLI.Repositories;
 
